@@ -34,6 +34,16 @@ const onAnimationFrameHandler = (timeStamp) => {
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 
+// ---------------------------- export ----------------------------
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
 // ------------------------- interaction -------------------------
 
 let x, y;
@@ -44,32 +54,34 @@ const onMouseMove = ( event ) => {
 }
 
 const onKeyDown = (event) => {
-    if(event.key == "c") {
-    	exportSVG(renderer.domElement, "lines_" + Math.random(1000));
+    
+    if(event.key == "s") {
+
+        // save unprojected coordinates 
+        let points = [];
+        for(let i=0; i< cScene.customLines.geometry.vertices.length; i++) {
+            points.push( utils.screenXY(cScene.customLines.geometry.vertices[i], camera, rendererWidth, rendererHeight) );
+        }
+
+        let formattedPoints = [];
+        for(let i=0; i<points.length; i++) {
+            if(i==0) {
+                let p = "M" + points[i].x + "," + points[i].y + ",";
+                formattedPoints.push(p);
+            }
+            if(i>0 && i<points.length-2) {
+                let p = "L" + points[i].x + "," + points[i].y + ",";
+                formattedPoints.push(p);
+            }
+            if(i==points.length-1) {
+                let p = "L" + points[i].x + "," + points[i].y;
+                formattedPoints.push(p);
+            }
+            
+        }
+        console.log(formattedPoints);
     }
 }
-
-// --------------------------- save svg ---------------------------
-function generateLink(fileName, data) {
-    let link = document.createElement('a');
-    link.download = fileName;
-    link.href = data;
-    return link;
-}
-
-function exportSVG(element, fileName) {
-    let svg = element;
-    let svgString;
-    if (window.ActiveXObject) {
-      svgString = svg.xml;
-    } else {
-      let oSerializer = new XMLSerializer();
-      svgString = oSerializer.serializeToString(svg);
-    }
-    generateLink(fileName + '.svg', 'data:image/svg+xml;utf8,' + svgString).click();
-}
-
-
 
 window.addEventListener( 'mousemove', onMouseMove, false );
 window.addEventListener("keydown", onKeyDown, false);
@@ -78,3 +90,18 @@ window.addEventListener("keydown", onKeyDown, false);
 document.body.style.margin = 0;
 document.body.appendChild( renderer.domElement );
 //document.body.appendChild( stats.dom );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
