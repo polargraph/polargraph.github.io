@@ -1,11 +1,12 @@
 import Stats from 'stats-js';
 import * as THREE from 'three';
-import CustomScene from './objects/Scene.js';
-import * as utils from './utils.js';
 import OrbitControls from 'three-orbitcontrols';
 
+import SinusScene from './scenes/SinusScene.js';
+import * as utils from './utils.js';
+
 const scene = new THREE.Scene();
-const cScene = new CustomScene();
+const cScene = new SinusScene();
 scene.add(cScene);
 
 const renderer = new THREE.WebGLRenderer();
@@ -48,10 +49,7 @@ const onMouseMove = ( event ) => {
 
 const onKeyDown = (event) => {
     if(event.key == "s") {
-
-        
-
-        utils.saveAsSVG(cScene.customLines.geometry.vertices, camera, rendererWidth, rendererHeight, "export.svg");
+        utils.saveAsSVG( cScene.getVertices(), camera, rendererWidth, rendererHeight, "export.svg" );
     }
 }
 

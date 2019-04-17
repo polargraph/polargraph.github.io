@@ -1,10 +1,8 @@
 import * as THREE from 'three';
 
-export default class CustomLines extends THREE.Group {
+export default class SinusScene extends THREE.Group {
     constructor() {
         super();
-        this.name = 'customline';
-        
         this.material = new THREE.LineBasicMaterial ( {color:0x000000, depthWrite:false, linewidth : 1 } ); 
         
         let xDiv = 11;
@@ -24,7 +22,14 @@ export default class CustomLines extends THREE.Group {
         }
         this.line = new THREE.Line (this.geometry, this.material);
         this.add( this.line );
+        
     }
 
-    update(timeStamp) {}
+    update(timeStamp, x, y, cam) {
+    	//... animate here
+    }
+
+    getVertices() {
+        return this.geometry.vertices;
+    }
 }
