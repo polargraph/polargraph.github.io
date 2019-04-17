@@ -2,6 +2,7 @@ import Stats from 'stats-js';
 import * as THREE from 'three';
 import CustomScene from './objects/Scene.js';
 import * as utils from './utils.js';
+import OrbitControls from 'three-orbitcontrols';
 
 const scene = new THREE.Scene();
 const cScene = new CustomScene();
@@ -19,7 +20,9 @@ stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 let camera = new THREE.PerspectiveCamera( 45, rendererWidth / rendererHeight, 0.1, 10000 );
 camera.position.z = 900;
 
-utils.test();
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.25;
 
 // ------------------------- animation ---------------------------
 
@@ -34,16 +37,6 @@ const onAnimationFrameHandler = (timeStamp) => {
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 
-// ---------------------------- export ----------------------------
-
-function download(content, fileName, contentType) {
-    var a = document.createElement("a");
-    var file = new Blob([content], {type: contentType});
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-}
-
 // ------------------------- interaction -------------------------
 
 let x, y;
@@ -54,32 +47,11 @@ const onMouseMove = ( event ) => {
 }
 
 const onKeyDown = (event) => {
-    
     if(event.key == "s") {
 
-        // save unprojected coordinates 
-        let points = [];
-        for(let i=0; i< cScene.customLines.geometry.vertices.length; i++) {
-            points.push( utils.screenXY(cScene.customLines.geometry.vertices[i], camera, rendererWidth, rendererHeight) );
-        }
+        
 
-        let formattedPoints = [];
-        for(let i=0; i<points.length; i++) {
-            if(i==0) {
-                let p = "M" + points[i].x + "," + points[i].y + ",";
-                formattedPoints.push(p);
-            }
-            if(i>0 && i<points.length-2) {
-                let p = "L" + points[i].x + "," + points[i].y + ",";
-                formattedPoints.push(p);
-            }
-            if(i==points.length-1) {
-                let p = "L" + points[i].x + "," + points[i].y;
-                formattedPoints.push(p);
-            }
-            
-        }
-        console.log(formattedPoints);
+        utils.saveAsSVG(cScene.customLines.geometry.vertices, camera, rendererWidth, rendererHeight, "export.svg");
     }
 }
 

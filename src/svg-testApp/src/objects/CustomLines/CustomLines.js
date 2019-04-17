@@ -19,18 +19,12 @@ export default class CustomLines extends THREE.Group {
         let z2 = 100; // 100
 
         this.geometry = new THREE.Geometry();
-            for(let i=0; i< 4000; i++) {
-                this.geometry.vertices.push( new THREE.Vector3(Math.sin(i/x1) * ((i/x2) / xDiv), Math.cos(i/y1) * ((i/y2) / yDiv) , Math.sin(z1-i/z2)* (z1 / zDiv)) );
-            }
-        
-        this.rotation.x = Math.random()*10;
-
+        for(let i=0; i< 4000; i++) {
+            this.geometry.vertices.push( new THREE.Vector3(Math.sin(i/x1) * ((i/x2) / xDiv), Math.cos(i/y1) * ((i/y2) / yDiv) , Math.sin(z1-i/z2)* (z1 / zDiv)) );
+        }
         this.line = new THREE.Line (this.geometry, this.material);
         this.add( this.line );
     }
 
-    update(timeStamp) {
-        //this.rotation.y = timeStamp / 10000;
-        //this.rotation.x = timeStamp / 12000;
-    }
+    update(timeStamp) {}
 }
