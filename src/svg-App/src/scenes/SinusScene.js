@@ -1,9 +1,14 @@
 import * as THREE from 'three';
 
 export default class SinusScene extends THREE.Group {
-    constructor() {
+    constructor(gui) {
         super();
-        this.material = new THREE.LineBasicMaterial ( {color:0x000000, depthWrite:false, linewidth : 1 } ); 
+
+        this.opacity = 1;
+
+        gui.add(this, 'opacity', 0, 1);
+
+        this.material = new THREE.LineBasicMaterial ( {color:0x000000, transparent:true, depthWrite:false, linewidth : 1 } ); 
         
         let xDiv = 11;
         let yDiv = 11;
@@ -26,10 +31,13 @@ export default class SinusScene extends THREE.Group {
     }
 
     update(timeStamp, x, y, cam) {
-    	//... animate here
+        this.line.material.opacity = this.opacity;
+
     }
 
     getVertices() {
         return this.geometry.vertices;
     }
+
+    
 }

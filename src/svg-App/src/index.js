@@ -1,12 +1,14 @@
 import Stats from 'stats-js';
 import * as THREE from 'three';
 import OrbitControls from 'three-orbitcontrols';
-
+import * as dat from 'dat.gui';
+ 
 import SinusScene from './scenes/SinusScene.js';
 import * as utils from './utils.js';
 
+const gui = new dat.GUI();
 const scene = new THREE.Scene();
-const cScene = new SinusScene();
+const cScene = new SinusScene(gui);
 scene.add(cScene);
 
 const renderer = new THREE.WebGLRenderer();
