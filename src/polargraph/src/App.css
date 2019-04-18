@@ -1,10 +1,14 @@
+:root {
+  --header-height: 56px;
+}
+
 body {
   font-family: 'Sanchez', serif;
 }
 
 .header {
   background-color: #282c34;
-  height: 10vh;
+  height: var(--header-height);
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -25,3 +29,12 @@ body {
   width: 100%;
   height: 90vh;
 }
+
+#gui {
+    position: fixed;
+    margin-top: var(--header-height); 
+    top: 0;
+    right: 0;
+    background-color: rgba(33,33,33,.7);
+    bottom: 0;
+  }
