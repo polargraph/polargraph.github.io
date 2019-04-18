@@ -8,7 +8,8 @@ import * as utils from './utils.js';
 
 window.onload = function() {
 
-    const gui = new dat.GUI();
+    const gui = new dat.GUI( { autoPlace: false } );
+    gui.domElement.id = 'gui';
     const scene = new THREE.Scene();
     const cScene = new SinusScene(gui);
     scene.add(cScene);
@@ -69,6 +70,7 @@ window.onload = function() {
     //document.body.appendChild( container );
 
     container.appendChild( renderer.domElement );
+    container.appendChild( gui.domElement );
     //document.body.appendChild( renderer.domElement );
     //document.body.appendChild( stats.dom );
 
