@@ -5,7 +5,7 @@ import Contact from './Contact.js'
 import Home from './Home.js'
 import { Container } from 'react-bootstrap';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -15,9 +15,11 @@ class App extends Component {
 
 
         <Router>
-          <Route path="/" exact component={Home} />
-          <Route path="/about/" component={About} />
-          <Route path="/contact/" component={Contact} />
+          <div>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+          </div>
         </Router>
         <div id="canvas"> </div>
       </div>
