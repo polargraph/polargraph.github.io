@@ -9,6 +9,8 @@ import * as utils from './utils.js';
 window.onload = function() {
 
     const gui = new dat.GUI();
+    gui.domElement.id = 'gui';
+    
     const scene = new THREE.Scene();
     const cScene = new SinusScene(gui);
     scene.add(cScene);
