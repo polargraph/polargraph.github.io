@@ -8,17 +8,18 @@ import * as utils from './utils.js';
 
 window.onload = function() {
 
-    const gui = new dat.GUI( { autoPlace: false } );
-    gui.domElement.id = 'gui';
+    const gui = new dat.GUI();
     const scene = new THREE.Scene();
     const cScene = new SinusScene(gui);
     scene.add(cScene);
 
     var container = document.getElementById( 'canvas' );
 
-    const renderer = new THREE.WebGLRenderer();
-    const rendererWidth = container.getBoundingClientRect().width;
-    const rendererHeight = container.getBoundingClientRect().height; //container.offsetHeight;
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    //const rendererWidth = container.getBoundingClientRect().width;
+    //const rendererHeight = container.getBoundingClientRect().height; //container.offsetHeight;
+    let rendererWidth = 420;
+    let rendererHeight = 594;
     renderer.setSize( rendererWidth, rendererHeight ); 
     renderer.setClearColor( 0xffffff, 1);
 
@@ -66,11 +67,12 @@ window.onload = function() {
 
     // ------------------------- html related -------------------------
     document.body.style.margin = 0;
-
-    //document.body.appendChild( container );
-
+    renderer.domElement.style.left = container.getBoundingClientRect().width/2 - rendererWidth/2 + 'px';
+    renderer.domElement.style.top = container.getBoundingClientRect().height/2 - rendererHeight/2 + 'px';
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.boxShadow = '10px 10px 19px 0px rgba(0,0,0,0.23)';
     container.appendChild( renderer.domElement );
-    container.appendChild( gui.domElement );
+    
     //document.body.appendChild( renderer.domElement );
     //document.body.appendChild( stats.dom );
 
