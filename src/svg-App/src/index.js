@@ -6,9 +6,8 @@ import * as dat from 'dat.gui';
 import SinusScene from './scenes/SinusScene.js';
 import * as utils from './utils.js';
 
-
 window.onload = function() {
-    var Params = function() {
+    let Params = function() {
         this.rendererWidth = 420;
         this.rendererHeight = 594;
         this.exportSVG = function() { 
@@ -28,15 +27,11 @@ window.onload = function() {
     const cScene = new SinusScene(gui);
     scene.add(cScene);
 
-    var container = document.getElementById( 'canvas' );
+    let container = document.getElementById( 'canvas' );
 
     const renderer = new THREE.WebGLRenderer({antialias: true});
-    //const rendererWidth = container.getBoundingClientRect().width;
-    //const rendererHeight = container.getBoundingClientRect().height; //container.offsetHeight;
-    
     renderer.setSize( params.rendererWidth, params.rendererHeight ); 
     renderer.setClearColor( 0xffffff, 1);
-
 
     const stats = new Stats();
     stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -100,18 +95,4 @@ window.onload = function() {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.boxShadow = '10px 10px 19px 0px rgba(0,0,0,0.23)';
     container.appendChild( renderer.domElement );
-    
-    //document.body.appendChild( renderer.domElement );
-    //document.body.appendChild( stats.dom );
-
 }
-
-
-
-
-
-
-
-
-
-
