@@ -6,17 +6,23 @@ import * as dat from 'dat.gui';
 import SinusScene from './scenes/SinusScene.js';
 import * as utils from './utils.js';
 
-var Params = function() {
-    this.rendererWidth = 420;
-    this.rendererHeight = 594;
-}
+
 window.onload = function() {
+    var Params = function() {
+        this.rendererWidth = 420;
+        this.rendererHeight = 594;
+        this.exportSVG = function() { 
+            utils.saveAsSVG( cScene.getVertices(), camera, params.rendererWidth, params.rendererHeight, "export.svg" );
+        }
+    }
+
     let params = new Params();
     
     const gui = new dat.GUI();
     gui.domElement.id = 'gui';
     let controllerWidth = gui.add(params, 'rendererWidth', 100, 3000);
     let controllerHeight = gui.add(params, 'rendererHeight', 100, 3000);
+    gui.add( params, 'exportSVG');
 
     const scene = new THREE.Scene();
     const cScene = new SinusScene(gui);
@@ -69,12 +75,9 @@ window.onload = function() {
     }
     window.requestAnimationFrame(onAnimationFrameHandler);
 
-
     // ------------------------- interaction -------------------------
 
     let x, y;
-
-
 
     const onMouseMove = ( event ) => {
         x = ( event.clientX / window.innerWidth );
