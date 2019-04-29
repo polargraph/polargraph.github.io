@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Dropdown, Container } from 'react-bootstrap';
+import { Dropdown, Container, Navbar } from 'react-bootstrap';
 import Script from 'react-load-script'
 
 
@@ -17,23 +17,25 @@ class Home extends Component {
     this.state = { value: '' };
   }
   render() {
+    let loadScript = scripts[this.getUrlParameter('script') ? this.getUrlParameter('script') : 0];
     return (
       <div className="Contact">
-        <Container>
-          <Dropdown className="mt-2 mb-2">
-            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-              Load other script
-            </Dropdown.Toggle>
+        <Navbar className="secondBar">
+          <Container>
+            <Dropdown className="mt-2 mb-2">
+              <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                Load other script
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              { scripts.map((script, index) =>
-                <Dropdown.Item href={'/?script=' + index}> {script} </Dropdown.Item>
-              ) }
-            </Dropdown.Menu>
-          </Dropdown>
-        </Container>
-        <div id="canvas"> </div><
-          Script url={scripts[this.getUrlParameter('script')] }/>
+              <Dropdown.Menu>
+                { scripts.map((script, index) =>
+                  <Dropdown.Item href={'/?script=' + index}> {script} </Dropdown.Item>
+                ) }
+              </Dropdown.Menu>
+            </Dropdown>
+          </Container>
+        </Navbar>
+        <Script url={loadScript}/>
       </div>
     );
   }
