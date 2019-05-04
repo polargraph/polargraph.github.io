@@ -13,7 +13,8 @@ class Contact extends Component {
         </Row>
         <Row className="mt-5">
           <Col md={6}>
-            <p> Binaura © 2019 </p>
+            <p> If you have any questions, drop us a mail: <b>info at binaura dot net</b></p> 
+            <p>and if you wish, <a href="https://tinyletter.com/Binaura">subscribe to our newsletter</a></p>
           </Col>
           <Col md={6}>
           </Col>

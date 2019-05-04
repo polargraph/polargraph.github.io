@@ -4,7 +4,7 @@ import { Dropdown, Container, Navbar } from 'react-bootstrap';
 import Script from 'react-load-script'
 
 
-let scripts = ['/main.js', '/main.js', '/main.js', '/main.js'];
+let scripts = ['/main.js'];
 class Home extends Component {
   state = {
     loadScript: 0
